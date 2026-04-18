@@ -61,15 +61,11 @@ namespace UCP1
 
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
-
-                // ID tetap ada di grid tapi disembunyikan
                 dataGridView1.Columns.Add("idTamu", "ID");
                 dataGridView1.Columns.Add("namaLengkap", "Nama");
                 dataGridView1.Columns.Add("asalDaerah", "Asal Daerah");
                 dataGridView1.Columns.Add("keperluan", "Tujuan");
                 dataGridView1.Columns.Add("tanggal", "Tanggal");
-
-                // Sembunyikan kolom ID di grid
                 dataGridView1.Columns["idTamu"].Visible = false;
 
                 string query = "SELECT * FROM BukuTamu";
@@ -96,7 +92,6 @@ namespace UCP1
             }
         }
 
-        // ── Menambahkan Data (INSERT + ExecuteNonQuery) ───────────────
         private void MenambahkanData_Click(object sender, EventArgs e)
         {
             try
@@ -153,7 +148,6 @@ namespace UCP1
             }
         }
 
-        // ── Mengubah Data (UPDATE + ExecuteNonQuery) ──────────────────
         private void MengubahData_Click(object sender, EventArgs e)
         {
             try
@@ -200,7 +194,6 @@ namespace UCP1
             }
         }
 
-        // ── Menghapus Data (DELETE + ExecuteNonQuery) ─────────────────
         private void MenghapusData_Click(object sender, EventArgs e)
         {
             try
