@@ -29,20 +29,21 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.lblNama = new System.Windows.Forms.Label();
+            this.textBoxNama = new System.Windows.Forms.TextBox();
+            this.lblAsalDaerah = new System.Windows.Forms.Label();
+            this.textBoxAsalDaerah = new System.Windows.Forms.TextBox();
+            this.lblTujuan = new System.Windows.Forms.Label();
+            this.textBoxTujuan = new System.Windows.Forms.TextBox();
+            this.lblTanggal = new System.Windows.Forms.Label();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnMenampilkanData = new System.Windows.Forms.Button();
+            this.btnMenambahkanData = new System.Windows.Forms.Button();
+            this.btnMengubahData = new System.Windows.Forms.Button();
+            this.btnMenghapusData = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.btnMembukaKoneksi = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,75 +54,76 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.RowTemplate.Height = 33;
-            this.dataGridView1.Size = new System.Drawing.Size(1335, 380);
+            this.dataGridView1.Size = new System.Drawing.Size(1131, 380);
             this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // label1
+            // lblNama
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(104, 212);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 25);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Nama";
+            this.lblNama.AutoSize = true;
+            this.lblNama.Location = new System.Drawing.Point(104, 212);
+            this.lblNama.Name = "lblNama";
+            this.lblNama.Size = new System.Drawing.Size(68, 25);
+            this.lblNama.TabIndex = 8;
+            this.lblNama.Text = "Nama";
             // 
-            // textBox1
+            // textBoxNama
             // 
-            this.textBox1.Location = new System.Drawing.Point(290, 212);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(425, 75);
-            this.textBox1.TabIndex = 9;
+            this.textBoxNama.Location = new System.Drawing.Point(290, 212);
+            this.textBoxNama.Multiline = true;
+            this.textBoxNama.Name = "textBoxNama";
+            this.textBoxNama.Size = new System.Drawing.Size(425, 75);
+            this.textBoxNama.TabIndex = 9;
             // 
-            // label2
+            // lblAsalDaerah
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(104, 320);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 25);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Asal Daerah";
+            this.lblAsalDaerah.AutoSize = true;
+            this.lblAsalDaerah.Location = new System.Drawing.Point(104, 320);
+            this.lblAsalDaerah.Name = "lblAsalDaerah";
+            this.lblAsalDaerah.Size = new System.Drawing.Size(130, 25);
+            this.lblAsalDaerah.TabIndex = 10;
+            this.lblAsalDaerah.Text = "Asal Daerah";
             // 
-            // textBox3
+            // textBoxAsalDaerah
             // 
-            this.textBox3.Location = new System.Drawing.Point(290, 317);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(425, 75);
-            this.textBox3.TabIndex = 11;
+            this.textBoxAsalDaerah.Location = new System.Drawing.Point(290, 317);
+            this.textBoxAsalDaerah.Multiline = true;
+            this.textBoxAsalDaerah.Name = "textBoxAsalDaerah";
+            this.textBoxAsalDaerah.Size = new System.Drawing.Size(425, 75);
+            this.textBoxAsalDaerah.TabIndex = 11;
             // 
-            // label3
+            // lblTujuan
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(104, 423);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 25);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Tujuan";
+            this.lblTujuan.AutoSize = true;
+            this.lblTujuan.Location = new System.Drawing.Point(104, 423);
+            this.lblTujuan.Name = "lblTujuan";
+            this.lblTujuan.Size = new System.Drawing.Size(78, 25);
+            this.lblTujuan.TabIndex = 12;
+            this.lblTujuan.Text = "Tujuan";
             // 
-            // textBox2
+            // textBoxTujuan
             // 
-            this.textBox2.Location = new System.Drawing.Point(290, 423);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(425, 75);
-            this.textBox2.TabIndex = 13;
+            this.textBoxTujuan.Location = new System.Drawing.Point(290, 423);
+            this.textBoxTujuan.Multiline = true;
+            this.textBoxTujuan.Name = "textBoxTujuan";
+            this.textBoxTujuan.Size = new System.Drawing.Size(425, 75);
+            this.textBoxTujuan.TabIndex = 13;
             // 
-            // label4
+            // lblTanggal
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(104, 542);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 25);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Tanggal";
+            this.lblTanggal.AutoSize = true;
+            this.lblTanggal.Location = new System.Drawing.Point(104, 542);
+            this.lblTanggal.Name = "lblTanggal";
+            this.lblTanggal.Size = new System.Drawing.Size(90, 25);
+            this.lblTanggal.TabIndex = 14;
+            this.lblTanggal.Text = "Tanggal";
             // 
-            // dateTimePicker1
+            // dateTimePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(290, 537);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(425, 31);
-            this.dateTimePicker1.TabIndex = 15;
+            this.dateTimePicker.Location = new System.Drawing.Point(290, 537);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(425, 31);
+            this.dateTimePicker.TabIndex = 15;
             // 
             // label7
             // 
@@ -133,73 +135,90 @@
             this.label7.TabIndex = 16;
             this.label7.Text = "Petugas";
             // 
-            // button2
+            // btnMenampilkanData
             // 
-            this.button2.Location = new System.Drawing.Point(815, 212);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(425, 35);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "Menampilkan Data";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnMenampilkanData.Location = new System.Drawing.Point(815, 275);
+            this.btnMenampilkanData.Name = "btnMenampilkanData";
+            this.btnMenampilkanData.Size = new System.Drawing.Size(425, 35);
+            this.btnMenampilkanData.TabIndex = 20;
+            this.btnMenampilkanData.Text = "Menampilkan Data";
+            this.btnMenampilkanData.UseVisualStyleBackColor = true;
+            this.btnMenampilkanData.Click += new System.EventHandler(this.MenampilkanData_Click);
             // 
-            // button1
+            // btnMenambahkanData
             // 
-            this.button1.Location = new System.Drawing.Point(815, 286);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(425, 35);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Menambahkan Data";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnMenambahkanData.Location = new System.Drawing.Point(815, 338);
+            this.btnMenambahkanData.Name = "btnMenambahkanData";
+            this.btnMenambahkanData.Size = new System.Drawing.Size(425, 35);
+            this.btnMenambahkanData.TabIndex = 21;
+            this.btnMenambahkanData.Text = "Menambahkan Data";
+            this.btnMenambahkanData.UseVisualStyleBackColor = true;
+            this.btnMenambahkanData.Click += new System.EventHandler(this.MenambahkanData_Click);
             // 
-            // button3
+            // btnMengubahData
             // 
-            this.button3.Location = new System.Drawing.Point(815, 357);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(425, 35);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "Mengubah Data";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnMengubahData.Location = new System.Drawing.Point(815, 402);
+            this.btnMengubahData.Name = "btnMengubahData";
+            this.btnMengubahData.Size = new System.Drawing.Size(425, 35);
+            this.btnMengubahData.TabIndex = 22;
+            this.btnMengubahData.Text = "Mengubah Data";
+            this.btnMengubahData.UseVisualStyleBackColor = true;
+            this.btnMengubahData.Click += new System.EventHandler(this.MengubahData_Click);
             // 
-            // button4
+            // btnMenghapusData
             // 
-            this.button4.Location = new System.Drawing.Point(815, 436);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(425, 35);
-            this.button4.TabIndex = 23;
-            this.button4.Text = "Menghapus Data";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnMenghapusData.Location = new System.Drawing.Point(815, 468);
+            this.btnMenghapusData.Name = "btnMenghapusData";
+            this.btnMenghapusData.Size = new System.Drawing.Size(425, 35);
+            this.btnMenghapusData.TabIndex = 23;
+            this.btnMenghapusData.Text = "Menghapus Data";
+            this.btnMenghapusData.UseVisualStyleBackColor = true;
+            this.btnMenghapusData.Click += new System.EventHandler(this.MenghapusData_Click);
             // 
-            // button5
+            // btnLogout
             // 
-            this.button5.Location = new System.Drawing.Point(815, 512);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(425, 35);
-            this.button5.TabIndex = 24;
-            this.button5.Text = "Logout";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnLogout.Location = new System.Drawing.Point(815, 532);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(425, 35);
+            this.btnLogout.TabIndex = 24;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.Logout_Click);
+            // 
+            // btnMembukaKoneksi
+            // 
+            this.btnMembukaKoneksi.Location = new System.Drawing.Point(815, 212);
+            this.btnMembukaKoneksi.Name = "btnMembukaKoneksi";
+            this.btnMembukaKoneksi.Size = new System.Drawing.Size(425, 35);
+            this.btnMembukaKoneksi.TabIndex = 25;
+            this.btnMembukaKoneksi.Text = "Membuka Koneksi";
+            this.btnMembukaKoneksi.UseVisualStyleBackColor = true;
+            this.btnMembukaKoneksi.Click += new System.EventHandler(this.MembukaKoneksi_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(3076, 1879);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnMembukaKoneksi);
+            this.Controls.Add(this.btnLogout);
+            this.Controls.Add(this.btnMenghapusData);
+            this.Controls.Add(this.btnMengubahData);
+            this.Controls.Add(this.btnMenambahkanData);
+            this.Controls.Add(this.btnMenampilkanData);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dateTimePicker);
+            this.Controls.Add(this.lblTanggal);
+            this.Controls.Add(this.textBoxTujuan);
+            this.Controls.Add(this.lblTujuan);
+            this.Controls.Add(this.textBoxAsalDaerah);
+            this.Controls.Add(this.lblAsalDaerah);
+            this.Controls.Add(this.textBoxNama);
+            this.Controls.Add(this.lblNama);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -208,20 +227,21 @@
 
         #endregion
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label lblNama;
+        private System.Windows.Forms.TextBox textBoxNama;
+        private System.Windows.Forms.Label lblAsalDaerah;
+        private System.Windows.Forms.TextBox textBoxAsalDaerah;
+        private System.Windows.Forms.Label lblTujuan;
+        private System.Windows.Forms.Label lblTanggal;
+        private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnMenampilkanData;
+        private System.Windows.Forms.Button btnMenambahkanData;
+        private System.Windows.Forms.Button btnMengubahData;
+        private System.Windows.Forms.Button btnMenghapusData;
+        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnMembukaKoneksi;
+        private System.Windows.Forms.TextBox textBoxTujuan;
     }
 }
 
