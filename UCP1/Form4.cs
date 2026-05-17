@@ -65,4 +65,9 @@ namespace UCP1
                 textBoxPassword.Clear();
                 textBoxUsername.Focus();
             }
-
+        }
+        catch (Exception ex)
+        {
+                MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
