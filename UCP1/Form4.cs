@@ -31,6 +31,7 @@ namespace UCP1
                     textBoxUsername.Focus();
                     return;
                 }
+
                 if (textBoxPassword.Text == "")
                 {
                     MessageBox.Show("Password harus diisi", "Peringatan",
@@ -39,41 +40,43 @@ namespace UCP1
                     return;
                 }
 
-            }
-            string queryInjection = "SELECT * FROM Petugas WHERE username = '"
+                string queryInjection = "SELECT * FROM Petugas WHERE username = '"
                     + textBoxUsername.Text + "' AND password = '"
                     + textBoxPassword.Text + "'";
 
-            SqlCommand cmdInjection = new SqlCommand(queryInjection, conn);
-            SqlDataReader reader = cmdInjection.ExecuteReader();
+                SqlCommand cmdInjection = new SqlCommand(queryInjection, conn);
+                SqlDataReader reader = cmdInjection.ExecuteReader();
 
-            if (reader.Read())
-            {
-                MessageBox.Show("Login berhasil! Selamat datang, " + reader["nama"].ToString(),
-                    "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                reader.Close();
-                Form1 formPetugas = new Form1();
-                formPetugas.Show();
-                this.Hide();
+                if (reader.Read())
+                {
+                    MessageBox.Show("Login berhasil! Selamat datang, " + reader["nama"].ToString(),
+                        "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    reader.Close();
+                    Form1 formPetugas = new Form1();
+                    formPetugas.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    reader.Close();
+                    MessageBox.Show("Username atau password salah", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBoxUsername.Clear();
+                    textBoxPassword.Clear();
+                    textBoxUsername.Focus();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                reader.Close();
-                MessageBox.Show("Username atau password salah", "Error",
-                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                textBoxUsername.Clear();
-                textBoxPassword.Clear();
-                textBoxUsername.Focus();
-            }
-        }
-        catch (Exception ex)
-        {
                 MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void textBoxPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+                Login_Click(sender, e);
         }
     }
-    private void textBoxPassword_KeyPress(object sender, KeyPressEventArgs e)
-}
-
-}
 }
