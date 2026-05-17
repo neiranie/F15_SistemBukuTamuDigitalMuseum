@@ -40,12 +40,12 @@ namespace UCP1
                     return;
                 }
 
-                string queryInjection = "SELECT * FROM Petugas WHERE username = '"
-                    + textBoxUsername.Text + "' AND password = '"
-                    + textBoxPassword.Text + "'";
+                string query = "SELECT * FROM Petugas WHERE username = @username AND password = @password";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", textBoxUsername.Text);
+                cmd.Parameters.AddWithValue("@password", textBoxPassword.Text);
 
-                SqlCommand cmdInjection = new SqlCommand(queryInjection, conn);
-                SqlDataReader reader = cmdInjection.ExecuteReader();
+                SqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {

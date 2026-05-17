@@ -12,7 +12,6 @@ namespace UCP1
             "Data Source=MIFTAHULJANNAH\\MIFTAHJW;Initial Catalog=DBBukuTamuMuseum;Integrated Security=True";
 
         private int selectedId = 0;
-
         private DataTable dataTable = new DataTable();
         private BindingSource bindingSource = new BindingSource();
 
@@ -36,6 +35,8 @@ namespace UCP1
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            bindingNavigator1.BindingSource = bindingSource;
         }
 
         private bool IsValidText(string text)
