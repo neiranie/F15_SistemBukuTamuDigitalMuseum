@@ -13,6 +13,9 @@ namespace UCP1
 
         private int selectedId = 0;
 
+        private DataTable dataTable = new DataTable();
+        private BindingSource bindingSource = new BindingSource();
+
         public Form1()
         {
             InitializeComponent();
