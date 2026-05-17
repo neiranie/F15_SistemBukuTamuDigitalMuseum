@@ -86,25 +86,12 @@ namespace UCP1
                 string query = "SELECT idTamu, namaLengkap, asalDaerah, keperluan, tanggal FROM BukuTamu";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
 
-                while (reader.Read())
-                {
-                    dataGridView1.Rows.Add(
-                        reader["idTamu"].ToString(),
-                        reader["namaLengkap"].ToString(),
-                        reader["asalDaerah"].ToString(),
-                        reader["keperluan"].ToString(),
-                        Convert.ToDateTime(reader["tanggal"]).ToShortDateString()
-                    );
-                }
+                dataTable = new DataTable();
+                adapter.Fill(dataTable);
 
-                reader.Close();
+
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Gagal menampilkan data: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+         }
 
         private void MenambahkanData_Click(object sender, EventArgs e)
         {
