@@ -43,3 +43,6 @@ namespace UCP1
             string queryInjection = "SELECT * FROM Petugas WHERE username = '"
                     + textBoxUsername.Text + "' AND password = '"
                     + textBoxPassword.Text + "'";
+
+            SqlCommand cmdInjection = new SqlCommand(queryInjection, conn);
+            SqlDataReader reader = cmdInjection.ExecuteReader();
