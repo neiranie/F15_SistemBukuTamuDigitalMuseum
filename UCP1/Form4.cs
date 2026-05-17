@@ -53,5 +53,8 @@ namespace UCP1
                     "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 reader.Close();
                 Form1 formPetugas = new Form1();
+                formPetugas.Show();
+                this.Hide();
+            }
 
 
