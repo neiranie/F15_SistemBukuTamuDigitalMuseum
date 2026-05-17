@@ -24,19 +24,3 @@ Jika sistem tidak dilindungi, query yang terbentuk di database akan menjadi sepe
 SELECT * FROM Petugas WHERE username = '' OR '1'='1' AND password = '' OR '1'='1'
 
 Karena kondisi '1'='1' selalu bernilai benar, maka sistem yang tidak dilindungi akan mengizinkan siapa saja masuk tanpa verifikasi.
-
-### Hasil Percobaan
-Percobaan SQL Injection GAGAL. Sistem menampilkan pesan "Username atau password salah" karena aplikasi sudah dilindungi menggunakan Parameterized Query.
-
-### Cara Pencegahan yang Diterapkan
-Aplikasi menggunakan Parameterized Query, yaitu metode di mana input pengguna tidak langsung digabungkan ke dalam query SQL. Input diperlakukan sebagai data biasa, bukan sebagai perintah SQL, sehingga serangan SQL Injection tidak bisa masuk.
-
-Contoh kode yang digunakan:
-
-string query = "SELECT * FROM Petugas WHERE username = @username AND password = @password";
-SqlCommand cmd = new SqlCommand(query, conn);
-cmd.Parameters.AddWithValue("@username", textBoxUsername.Text);
-cmd.Parameters.AddWithValue("@password", textBoxPassword.Text);
-
-### Kesimpulan
-Dengan menggunakan Parameterized Query, sistem berhasil mencegah serangan SQL Injection pada form login Petugas. Input berbahaya seperti ' OR '1'='1 tidak akan dieksekusi sebagai perintah SQL, melainkan dianggap sebagai teks biasa yang tidak cocok dengan data di database.
