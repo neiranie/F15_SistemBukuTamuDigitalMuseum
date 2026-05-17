@@ -56,5 +56,7 @@ namespace UCP1
                 formPetugas.Show();
                 this.Hide();
             }
-
+            else
+            {
+                reader.Close();
 
