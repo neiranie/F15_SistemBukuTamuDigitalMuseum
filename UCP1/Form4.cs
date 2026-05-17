@@ -52,5 +52,6 @@ namespace UCP1
                 MessageBox.Show("Login berhasil! Selamat datang, " + reader["nama"].ToString(),
                     "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 reader.Close();
+                Form1 formPetugas = new Form1();
 
 
