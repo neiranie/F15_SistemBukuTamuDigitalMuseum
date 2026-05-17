@@ -1,17 +1,10 @@
+# Sistem Buku Tamu Digital Museum
 <img width="1919" height="1126" alt="Screenshot 2026-05-17 234551" src="https://github.com/user-attachments/assets/3041d883-384c-4e42-b77e-be6dfd7b32c1" />
 <img width="1918" height="1124" alt="Screenshot 2026-05-17 234610" src="https://github.com/user-attachments/assets/6949bc43-74ba-46d6-9326-20a9ddd9fe9d" />
 <img width="1919" height="1127" alt="Screenshot 2026-05-17 234646" src="https://github.com/user-attachments/assets/b089341b-837a-4ed5-9450-5f1baf154297" />
 <img width="1907" height="1129" alt="Screenshot 2026-05-17 234702" src="https://github.com/user-attachments/assets/552e99ad-9173-4770-a64c-a0efdb863dad" />
-# Sistem Buku Tamu Digital Museum
 
 Aplikasi desktop berbasis C# Windows Forms untuk mengelola data kunjungan tamu museum. Terdapat dua role pengguna yaitu Pengunjung dan Petugas.
-
-## Tampilan Aplikasi
-
-- Form3 - Halaman awal, pengguna memilih masuk sebagai Pengunjung atau Petugas
-- Form2 - Form input data pengunjung
-- Form4 - Form login khusus Petugas
-- Form1 - Dashboard Petugas untuk mengelola data buku tamu (CRUD)
 
 ## Skenario SQL Injection
 
