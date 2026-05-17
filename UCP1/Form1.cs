@@ -84,6 +84,7 @@ namespace UCP1
                     conn.Open();
 
                 string query = "SELECT idTamu, namaLengkap, asalDaerah, keperluan, tanggal FROM BukuTamu";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
 
                 while (reader.Read())
                 {
