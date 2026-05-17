@@ -7,7 +7,7 @@
 
 Aplikasi desktop berbasis C# Windows Forms untuk mengelola data kunjungan tamu museum. Terdapat dua role pengguna yaitu Pengunjung dan Petugas.
 
-### Apa itu SQL Injection?
+### SQL Injection
 SQL Injection adalah serangan siber di mana penyerang menyisipkan perintah SQL melalui kolom input aplikasi. Tujuannya untuk memanipulasi database, misalnya bypass login tanpa username dan password yang benar.
 
 ### Form yang Diuji
