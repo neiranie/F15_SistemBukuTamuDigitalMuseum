@@ -1,20 +1,51 @@
-### Form Data Pengunjung
-<img width="3072" height="1920" alt="Screenshot 2026-04-20 062037" src="https://github.com/user-attachments/assets/ddf9d6c5-4a96-4c30-8ac6-a26fb4be784d" />
+<img width="1919" height="1126" alt="Screenshot 2026-05-17 234551" src="https://github.com/user-attachments/assets/3041d883-384c-4e42-b77e-be6dfd7b32c1" />
+<img width="1918" height="1124" alt="Screenshot 2026-05-17 234610" src="https://github.com/user-attachments/assets/6949bc43-74ba-46d6-9326-20a9ddd9fe9d" />
+<img width="1919" height="1127" alt="Screenshot 2026-05-17 234646" src="https://github.com/user-attachments/assets/b089341b-837a-4ed5-9450-5f1baf154297" />
+<img width="1907" height="1129" alt="Screenshot 2026-05-17 234702" src="https://github.com/user-attachments/assets/552e99ad-9173-4770-a64c-a0efdb863dad" />
+# Sistem Buku Tamu Digital Museum
 
-### Login Petugas
-<img width="3072" height="1920" alt="image" src="https://github.com/user-attachments/assets/b58e3886-9ba8-4c75-8d7d-94b3c005497b" />
+Aplikasi desktop berbasis C# Windows Forms untuk mengelola data kunjungan tamu museum. Terdapat dua role pengguna yaitu Pengunjung dan Petugas.
 
-### Membuka Koneksi
-<img width="3072" height="1920" alt="Screenshot 2026-04-20 062548" src="https://github.com/user-attachments/assets/ce59cc38-fdc7-4bc9-8d1b-fdc76ec91638" />
+## Tampilan Aplikasi
 
-### Melihat Data
-<img width="3072" height="1920" alt="image" src="https://github.com/user-attachments/assets/0d7e2442-10cf-4163-adef-00631c593c1b" />
+- Form3 - Halaman awal, pengguna memilih masuk sebagai Pengunjung atau Petugas
+- Form2 - Form input data pengunjung
+- Form4 - Form login khusus Petugas
+- Form1 - Dashboard Petugas untuk mengelola data buku tamu (CRUD)
 
-### Menambahkan Data
-<img width="3072" height="1920" alt="Screenshot 2026-04-20 062622" src="https://github.com/user-attachments/assets/4dead39b-910a-4476-a9aa-3c6432f11fad" />
+## Skenario SQL Injection
 
-### Mengubah Data
-<img width="3072" height="1920" alt="Screenshot 2026-04-20 062622" src="https://github.com/user-attachments/assets/911056b1-0289-47ec-861c-4fcd84bc4b91" />
+### Apa itu SQL Injection?
+SQL Injection adalah serangan siber di mana penyerang menyisipkan perintah SQL melalui kolom input aplikasi. Tujuannya untuk memanipulasi database, misalnya bypass login tanpa username dan password yang benar.
 
-### Menghapus Data
-<img width="3072" height="1920" alt="Screenshot 2026-04-20 062657" src="https://github.com/user-attachments/assets/500acc32-e62c-46b0-aa65-0fd75fb537c1" />
+### Form yang Diuji
+Form4 - Login Petugas
+
+### Percobaan SQL Injection
+
+Penyerang mencoba masuk ke sistem tanpa memiliki akun yang terdaftar dengan cara memasukkan input berikut:
+
+- Username: ' OR '1'='1
+- Password: ' OR '1'='1
+
+Jika sistem tidak dilindungi, query yang terbentuk di database akan menjadi seperti ini:
+
+SELECT * FROM Petugas WHERE username = '' OR '1'='1' AND password = '' OR '1'='1'
+
+Karena kondisi '1'='1' selalu bernilai benar, maka sistem yang tidak dilindungi akan mengizinkan siapa saja masuk tanpa verifikasi.
+
+### Hasil Percobaan
+Percobaan SQL Injection GAGAL. Sistem menampilkan pesan "Username atau password salah" karena aplikasi sudah dilindungi menggunakan Parameterized Query.
+
+### Cara Pencegahan yang Diterapkan
+Aplikasi menggunakan Parameterized Query, yaitu metode di mana input pengguna tidak langsung digabungkan ke dalam query SQL. Input diperlakukan sebagai data biasa, bukan sebagai perintah SQL, sehingga serangan SQL Injection tidak bisa masuk.
+
+Contoh kode yang digunakan:
+
+string query = "SELECT * FROM Petugas WHERE username = @username AND password = @password";
+SqlCommand cmd = new SqlCommand(query, conn);
+cmd.Parameters.AddWithValue("@username", textBoxUsername.Text);
+cmd.Parameters.AddWithValue("@password", textBoxPassword.Text);
+
+### Kesimpulan
+Dengan menggunakan Parameterized Query, sistem berhasil mencegah serangan SQL Injection pada form login Petugas. Input berbahaya seperti ' OR '1'='1 tidak akan dieksekusi sebagai perintah SQL, melainkan dianggap sebagai teks biasa yang tidak cocok dengan data di database.
