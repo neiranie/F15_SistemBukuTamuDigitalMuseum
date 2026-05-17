@@ -89,9 +89,17 @@ namespace UCP1
                 dataTable = new DataTable();
                 adapter.Fill(dataTable);
 
+                bindingSource.DataSource = dataTable;
+                dataGridView1.DataSource = bindingSource;
 
+                dataGridView1.Columns["idTamu"].Visible = false;
             }
-         }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal menampilkan data: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void MenambahkanData_Click(object sender, EventArgs e)
         {
