@@ -61,4 +61,8 @@ namespace UCP1
                 reader.Close();
                 MessageBox.Show("Username atau password salah", "Error",
                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxUsername.Clear();
+                textBoxPassword.Clear();
+                textBoxUsername.Focus();
+            }
 
