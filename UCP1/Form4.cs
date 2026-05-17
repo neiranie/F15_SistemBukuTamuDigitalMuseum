@@ -59,4 +59,6 @@ namespace UCP1
             else
             {
                 reader.Close();
+                MessageBox.Show("Username atau password salah", "Error",
+                     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
