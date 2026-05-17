@@ -48,3 +48,5 @@ namespace UCP1
             SqlDataReader reader = cmdInjection.ExecuteReader();
 
             if (reader.Read())
+            {
+                MessageBox.Show("Login berhasil! Selamat datang, " + reader["nama"].ToString(),
