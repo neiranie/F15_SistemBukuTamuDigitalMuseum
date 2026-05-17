@@ -83,18 +83,7 @@ namespace UCP1
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                dataGridView1.Rows.Clear();
-                dataGridView1.Columns.Clear();
-                dataGridView1.Columns.Add("idTamu", "ID");
-                dataGridView1.Columns.Add("namaLengkap", "Nama");
-                dataGridView1.Columns.Add("asalDaerah", "Asal Daerah");
-                dataGridView1.Columns.Add("keperluan", "Tujuan");
-                dataGridView1.Columns.Add("tanggal", "Tanggal");
-                dataGridView1.Columns["idTamu"].Visible = false;
-
-                string query = "SELECT * FROM BukuTamu";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
+                string query = "SELECT idTamu, namaLengkap, asalDaerah, keperluan, tanggal FROM BukuTamu";
 
                 while (reader.Read())
                 {
