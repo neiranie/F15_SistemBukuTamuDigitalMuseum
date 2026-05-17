@@ -9,7 +9,7 @@ namespace UCP1
     {
         private readonly SqlConnection conn;
         private readonly string connectionString =
-            "Data Source=LAPTOP-9BPMNG3K\\ANNEIRA;Initial Catalog=DBBukuTamuMuseum;Integrated Security=True";
+            "Data Source=MIFTAHULJANNAH\\MIFTAHJW;Initial Catalog=DBBukuTamuMuseum;Integrated Security=True";
 
         public Form2()
         {
@@ -22,6 +22,21 @@ namespace UCP1
             dateTimePicker1.Value = DateTime.Now;
         }
 
+        private bool IsValidText(string text)
+        {
+            if (text.Trim().Length < 2) return false;
+            bool adaHuruf = false;
+            foreach (char c in text)
+            {
+                if (char.IsLetter(c))
+                {
+                    adaHuruf = true;
+                    break;
+                }
+            }
+            return adaHuruf;
+        }
+
         private void Kirim_Click(object sender, EventArgs e)
         {
             try
@@ -29,22 +44,45 @@ namespace UCP1
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                if (textBoxNama.Text == "")
+                if (!IsValidText(textBoxNama.Text))
                 {
-                    MessageBox.Show("Nama harus diisi");
+                    MessageBox.Show("Nama tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     textBoxNama.Focus();
                     return;
                 }
-                if (textBoxAsalDaerah.Text == "")
+                if (!IsValidText(textBoxAsalDaerah.Text))
                 {
-                    MessageBox.Show("Asal Daerah harus diisi");
+                    MessageBox.Show("Asal Daerah tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     textBoxAsalDaerah.Focus();
                     return;
                 }
-                if (textBoxTujuan.Text == "")
+                if (!IsValidText(textBoxTujuan.Text))
                 {
-                    MessageBox.Show("Tujuan harus diisi");
+                    MessageBox.Show("Tujuan tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     textBoxTujuan.Focus();
+                    return;
+                }
+
+                string queryCheck = @"SELECT COUNT(*) FROM BukuTamu 
+                                      WHERE namaLengkap = @Nama 
+                                      AND asalDaerah = @AsalDaerah 
+                                      AND keperluan = @Tujuan 
+                                      AND CAST(tanggal AS DATE) = CAST(@Tanggal AS DATE)";
+
+                SqlCommand cmdCheck = new SqlCommand(queryCheck, conn);
+                cmdCheck.Parameters.AddWithValue("@Nama", textBoxNama.Text);
+                cmdCheck.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
+                cmdCheck.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
+                cmdCheck.Parameters.AddWithValue("@Tanggal", dateTimePicker1.Value.Date);
+
+                int count = (int)cmdCheck.ExecuteScalar();
+                if (count > 0)
+                {
+                    MessageBox.Show("Data sudah ada, tidak boleh duplikasi!", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -63,17 +101,20 @@ namespace UCP1
 
                 if (result > 0)
                 {
-                    MessageBox.Show("Data berhasil dikirim");
+                    MessageBox.Show("Data berhasil dikirim", "Info",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClearForm();
                 }
                 else
                 {
-                    MessageBox.Show("Data gagal dikirim");
+                    MessageBox.Show("Data gagal dikirim", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi kesalahan: " + ex.Message);
+                MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -86,62 +127,27 @@ namespace UCP1
             textBoxNama.Focus();
         }
 
-        private void Login_Click(object sender, EventArgs e)
+        private void Logout_Click(object sender, EventArgs e)
         {
-            try
+            DialogResult konfirmasi = MessageBox.Show(
+                "Apakah kamu yakin ingin logout?",
+                "Konfirmasi Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (konfirmasi == DialogResult.Yes)
             {
-                if (conn.State == ConnectionState.Closed)
-                    conn.Open();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
 
-                if (textBoxUsername.Text == "")
-                {
-                    MessageBox.Show("Username harus diisi");
-                    textBoxUsername.Focus();
-                    return;
-                }
-                if (textBoxPassword.Text == "")
-                {
-                    MessageBox.Show("Password harus diisi");
-                    textBoxPassword.Focus();
-                    return;
-                }
-
-                string query = "SELECT * FROM Petugas WHERE username = @Username AND password = @Password";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Username", textBoxUsername.Text);
-                cmd.Parameters.AddWithValue("@Password", textBoxPassword.Text);
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    MessageBox.Show("Login berhasil! Selamat datang, " + reader["nama"].ToString());
-                    reader.Close();
-
-                    Form1 formPetugas = new Form1();
-                    formPetugas.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    reader.Close();
-                    MessageBox.Show("Username atau password salah");
-                    textBoxUsername.Clear();
-                    textBoxPassword.Clear();
-                    textBoxUsername.Focus();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Terjadi kesalahan: " + ex.Message);
+                Form3 form3 = new Form3();
+                form3.Show();
+                this.Close();
             }
         }
 
-        private void textBoxPassword_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBoxNama_TextChanged(object sender, EventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-                Login_Click(sender, e);
         }
     }
 }
