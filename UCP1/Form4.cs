@@ -46,3 +46,5 @@ namespace UCP1
 
             SqlCommand cmdInjection = new SqlCommand(queryInjection, conn);
             SqlDataReader reader = cmdInjection.ExecuteReader();
+
+            if (reader.Read())
