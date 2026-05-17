@@ -50,3 +50,4 @@ namespace UCP1
             if (reader.Read())
             {
                 MessageBox.Show("Login berhasil! Selamat datang, " + reader["nama"].ToString(),
+                    "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
