@@ -71,3 +71,9 @@ namespace UCP1
                 MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+    }
+    private void textBoxPassword_KeyPress(object sender, KeyPressEventArgs e)
+}
+
+}
+}
