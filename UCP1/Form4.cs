@@ -40,4 +40,6 @@ namespace UCP1
                 }
 
             }
-            string queryInjection = "SELECT * FROM Petugas WHERE username = '" 
+            string queryInjection = "SELECT * FROM Petugas WHERE username = '"
+                    + textBoxUsername.Text + "' AND password = '"
+                    + textBoxPassword.Text + "'";
