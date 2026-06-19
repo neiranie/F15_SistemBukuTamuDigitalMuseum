@@ -247,79 +247,11 @@ namespace UCP1
                     return;
                 }
 
-                string querySama = @"SELECT COUNT(*) FROM BukuTamu 
-                                     WHERE idTamu = @IdTamu
-                                     AND namaLengkap = @Nama 
-                                     AND asalDaerah = @AsalDaerah 
-                                     AND keperluan = @Tujuan 
-                                     AND CAST(tanggal AS DATE) = CAST(@Tanggal AS DATE)";
+                if (!ValidasiForm()) return;
 
-                SqlCommand cmdSama = new SqlCommand(querySama, conn);
-                cmdSama.Parameters.AddWithValue("@IdTamu", selectedId);
-                cmdSama.Parameters.AddWithValue("@Nama", textBoxNama.Text);
-                cmdSama.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
-                cmdSama.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
-                cmdSama.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
-
-                int countSama = (int)cmdSama.ExecuteScalar();
-                if (countSama > 0)
-                {
-                    MessageBox.Show("Tidak ada perubahan data!", "Peringatan",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                string queryCheck = @"SELECT COUNT(*) FROM BukuTamu 
-                                      WHERE namaLengkap = @Nama 
-                                      AND asalDaerah = @AsalDaerah 
-                                      AND keperluan = @Tujuan 
-                                      AND CAST(tanggal AS DATE) = CAST(@Tanggal AS DATE)
-                                      AND idTamu != @IdTamu";
-
-                SqlCommand cmdCheck = new SqlCommand(queryCheck, conn);
-                cmdCheck.Parameters.AddWithValue("@Nama", textBoxNama.Text);
-                cmdCheck.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
-                cmdCheck.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
-                cmdCheck.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
-                cmdCheck.Parameters.AddWithValue("@IdTamu", selectedId);
-
-                int count = (int)cmdCheck.ExecuteScalar();
-                if (count > 0)
-                {
-                    MessageBox.Show("Data sama sudah ada, perubahan harus berbeda!", "Peringatan",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                string query = @"UPDATE BukuTamu
-                                 SET namaLengkap = @Nama,
-                                     asalDaerah  = @AsalDaerah,
-                                     keperluan   = @Tujuan,
-                                     tanggal     = @Tanggal
-                                 WHERE idTamu = @IdTamu";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmd = new SqlCommand("sp_UpdateBukuTamu", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IdTamu", selectedId);
-                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text);
-                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
-                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
-                cmd.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
-
-                int result = cmd.ExecuteNonQuery();
-
-                if (result > 0)
-                {
-                    MessageBox.Show("Data berhasil diubah", "Info",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearForm();
-                    MenampilkanData_Click(sender, e);
-                }
-                else
-                {
-                    MessageBox.Show("Data tidak ditemukan", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
             catch (Exception ex)
             {
                 MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
