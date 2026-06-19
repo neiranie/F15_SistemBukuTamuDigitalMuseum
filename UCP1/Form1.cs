@@ -345,8 +345,8 @@ namespace UCP1
 
                 if (resultConfirm == DialogResult.Yes)
                 {
-                    string query = "DELETE FROM BukuTamu WHERE idTamu = @IdTamu";
-                    SqlCommand cmd = new SqlCommand(query, conn);
+                    sqlCommand cmd = new SqlCommand("sp_DeleteBukuTamu", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IdTamu", selectedId);
 
                     int result = cmd.ExecuteNonQuery();
