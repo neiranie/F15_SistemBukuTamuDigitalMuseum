@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;  
 using System.Windows.Forms;
 
 namespace UCP1
@@ -25,7 +25,7 @@ namespace UCP1
             btnMenambahkanData.Enabled = false;
             btnMengubahData.Enabled = false;
             btnMenghapusData.Enabled = false;
-            btnSearch.Enabled = false;
+            btnSearch.Enabled = false;  
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -43,59 +43,17 @@ namespace UCP1
 
         private bool IsValidText(string text)
         {
-            if (string.IsNullOrWhiteSpace(text)) return false;
             if (text.Trim().Length < 2) return false;
-            return Regex.IsMatch(text.Trim(), @"^[a-zA-Z\s]+$");
-        }
-
-        private bool IsValidTanggal(DateTime tanggal, out string pesanError)
-        {
-            DateTime hariIni = DateTime.Today;
-
-            if (tanggal.Date != hariIni)
+            bool adaHuruf = false;
+            foreach (char c in text)
             {
-                pesanError = "Tanggal kunjungan hanya bisa diisi dengan tanggal hari ini.";
-                return false;
+                if (char.IsLetter(c))
+                {
+                    adaHuruf = true;
+                    break;
+                }
             }
-
-            pesanError = string.Empty;
-            return true;
-        }
-
-        private bool ValidasiForm()
-        {
-            if (!IsValidText(textBoxNama.Text))
-            {
-                MessageBox.Show(
-                    "Nama belum diisi dengan benar.\n\nMohon isi minimal 2 huruf, tanpa angka atau simbol (contoh: Budi Santoso).",
-                    "Periksa Kembali Nama", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBoxNama.Focus();
-                return false;
-            }
-            if (!IsValidText(textBoxAsalDaerah.Text))
-            {
-                MessageBox.Show(
-                    "Asal Daerah belum diisi dengan benar.\n\nMohon isi minimal 2 huruf, tanpa angka atau simbol (contoh: Bandung).",
-                    "Periksa Kembali Asal Daerah", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBoxAsalDaerah.Focus();
-                return false;
-            }
-            if (!IsValidText(textBoxTujuan.Text))
-            {
-                MessageBox.Show(
-                    "Tujuan kunjungan belum diisi dengan benar.\n\nMohon isi minimal 2 huruf, tanpa angka atau simbol (contoh: Penelitian).",
-                    "Periksa Kembali Tujuan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBoxTujuan.Focus();
-                return false;
-            }
-            if (!IsValidTanggal(dateTimePicker.Value, out string pesanTanggal))
-            {
-                MessageBox.Show(pesanTanggal, "Periksa Kembali Tanggal",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                dateTimePicker.Focus();
-                return false;
-            }
-            return true;
+            return adaHuruf;
         }
 
         private void MembukaKoneksi_Click(object sender, EventArgs e)
@@ -105,7 +63,7 @@ namespace UCP1
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                MessageBox.Show("Berhasil tersambung ke database museum.", "Koneksi Berhasil",
+                MessageBox.Show("Koneksi berhasil", "Info",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 btnMenampilkanData.Enabled = true;
@@ -113,40 +71,23 @@ namespace UCP1
                 btnMengubahData.Enabled = true;
                 btnMenghapusData.Enabled = true;
                 btnMembukaKoneksi.Enabled = false;
-                btnSearch.Enabled = true;
-
-                HitungTotalTamu();
             }
-            catch (SqlException)
+            catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Tidak bisa tersambung ke database.\n\nMohon periksa apakah SQL Server sudah menyala dan koneksi jaringan Anda normal.",
-                    "Koneksi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(
-                    "Terjadi gangguan saat mencoba tersambung ke database. Mohon coba lagi beberapa saat.",
-                    "Koneksi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Koneksi gagal: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void MenampilkanData_Click(object sender, EventArgs e)
-        {
-            TampilkanSemuaData();
-        }
-
-        private void TampilkanSemuaData()
         {
             try
             {
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                SqlCommand cmd = new SqlCommand("sp_GetAllBukuTamu", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                string query = "SELECT idTamu, namaLengkap, asalDaerah, keperluan, tanggal FROM BukuTamu";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
 
                 dataTable = new DataTable();
                 adapter.Fill(dataTable);
@@ -154,35 +95,12 @@ namespace UCP1
                 bindingSource.DataSource = dataTable;
                 dataGridView1.DataSource = bindingSource;
 
-                if (dataGridView1.Columns["idTamu"] != null)
-                    dataGridView1.Columns["idTamu"].Visible = false;
-
-                HitungTotalTamu();
+                dataGridView1.Columns["idTamu"].Visible = false;
             }
-            catch (SqlException)
+            catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Data tidak dapat ditampilkan saat ini. Mohon pastikan koneksi database masih aktif.",
-                    "Gagal Menampilkan Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void HitungTotalTamu()
-        {
-            try
-            {
-                if (conn.State == ConnectionState.Closed)
-                    conn.Open();
-
-                SqlCommand cmd = new SqlCommand("sp_CountBukuTamu", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                object hasil = cmd.ExecuteScalar();
-                lblTotal.Text = "Total: " + Convert.ToInt32(hasil).ToString();
-            }
-            catch (SqlException)
-            {
-                lblTotal.Text = "Total: -";
+                MessageBox.Show("Gagal menampilkan data: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -193,36 +111,78 @@ namespace UCP1
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                if (!ValidasiForm()) return;
+                if (!IsValidText(textBoxNama.Text))
+                {
+                    MessageBox.Show("Nama tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBoxNama.Focus();
+                    return;
+                }
+                if (!IsValidText(textBoxAsalDaerah.Text))
+                {
+                    MessageBox.Show("Asal Daerah tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBoxAsalDaerah.Focus();
+                    return;
+                }
+                if (!IsValidText(textBoxTujuan.Text))
+                {
+                    MessageBox.Show("Tujuan tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBoxTujuan.Focus();
+                    return;
+                }
 
-                SqlCommand cmd = new SqlCommand("sp_InsertBukuTamu", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text.Trim());
-                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text.Trim());
-                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text.Trim());
+                string queryCheck = @"SELECT COUNT(*) FROM BukuTamu 
+                                      WHERE namaLengkap = @Nama 
+                                      AND asalDaerah = @AsalDaerah 
+                                      AND keperluan = @Tujuan 
+                                      AND CAST(tanggal AS DATE) = CAST(@Tanggal AS DATE)";
+
+                SqlCommand cmdCheck = new SqlCommand(queryCheck, conn);
+                cmdCheck.Parameters.AddWithValue("@Nama", textBoxNama.Text);
+                cmdCheck.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
+                cmdCheck.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
+                cmdCheck.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
+
+                int count = (int)cmdCheck.ExecuteScalar();
+                if (count > 0)
+                {
+                    MessageBox.Show("Data sudah ada, tidak boleh duplikasi!", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string query = @"INSERT INTO BukuTamu
+                                    (namaLengkap, asalDaerah, keperluan, tanggal)
+                                 VALUES
+                                    (@Nama, @AsalDaerah, @Tujuan, @Tanggal)";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text);
+                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
+                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
                 cmd.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
 
-                cmd.ExecuteNonQuery();
+                int result = cmd.ExecuteNonQuery();
 
-                MessageBox.Show("Data tamu berhasil ditambahkan. Terima kasih!", "Berhasil",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearForm();
-                TampilkanSemuaData();
-            }
-            catch (SqlException ex)
-            {
-                if (ex.Message.Contains("duplikasi") || ex.Message.Contains("sudah ada"))
+                if (result > 0)
                 {
-                    MessageBox.Show(
-                        "Sepertinya data ini sudah pernah dicatat sebelumnya (nama, asal, tujuan, dan tanggal yang sama).",
-                        "Data Sudah Ada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Data berhasil ditambahkan", "Info",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearForm();
+                    MenampilkanData_Click(sender, e);
                 }
                 else
                 {
-                    MessageBox.Show(
-                        "Data gagal disimpan karena ada gangguan pada database. Mohon coba lagi.",
-                        "Gagal Menambahkan Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Data gagal ditambahkan", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -235,49 +195,110 @@ namespace UCP1
 
                 if (selectedId == 0)
                 {
-                    MessageBox.Show(
-                        "Silakan pilih salah satu baris data di tabel terlebih dahulu sebelum mengubah.",
-                        "Belum Ada Data Dipilih", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Pilih data dari tabel terlebih dahulu", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (!ValidasiForm()) return;
+                if (!IsValidText(textBoxNama.Text))
+                {
+                    MessageBox.Show("Nama tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBoxNama.Focus();
+                    return;
+                }
+                if (!IsValidText(textBoxAsalDaerah.Text))
+                {
+                    MessageBox.Show("Asal Daerah tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBoxAsalDaerah.Focus();
+                    return;
+                }
+                if (!IsValidText(textBoxTujuan.Text))
+                {
+                    MessageBox.Show("Tujuan tidak valid! Minimal 2 karakter dan harus mengandung huruf.",
+                        "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBoxTujuan.Focus();
+                    return;
+                }
 
-                SqlCommand cmd = new SqlCommand("sp_UpdateBukuTamu", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
+                string querySama = @"SELECT COUNT(*) FROM BukuTamu 
+                                     WHERE idTamu = @IdTamu
+                                     AND namaLengkap = @Nama 
+                                     AND asalDaerah = @AsalDaerah 
+                                     AND keperluan = @Tujuan 
+                                     AND CAST(tanggal AS DATE) = CAST(@Tanggal AS DATE)";
+
+                SqlCommand cmdSama = new SqlCommand(querySama, conn);
+                cmdSama.Parameters.AddWithValue("@IdTamu", selectedId);
+                cmdSama.Parameters.AddWithValue("@Nama", textBoxNama.Text);
+                cmdSama.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
+                cmdSama.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
+                cmdSama.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
+
+                int countSama = (int)cmdSama.ExecuteScalar();
+                if (countSama > 0)
+                {
+                    MessageBox.Show("Tidak ada perubahan data!", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string queryCheck = @"SELECT COUNT(*) FROM BukuTamu 
+                                      WHERE namaLengkap = @Nama 
+                                      AND asalDaerah = @AsalDaerah 
+                                      AND keperluan = @Tujuan 
+                                      AND CAST(tanggal AS DATE) = CAST(@Tanggal AS DATE)
+                                      AND idTamu != @IdTamu";
+
+                SqlCommand cmdCheck = new SqlCommand(queryCheck, conn);
+                cmdCheck.Parameters.AddWithValue("@Nama", textBoxNama.Text);
+                cmdCheck.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
+                cmdCheck.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
+                cmdCheck.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
+                cmdCheck.Parameters.AddWithValue("@IdTamu", selectedId);
+
+                int count = (int)cmdCheck.ExecuteScalar();
+                if (count > 0)
+                {
+                    MessageBox.Show("Data sama sudah ada, perubahan harus berbeda!", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string query = @"UPDATE BukuTamu
+                                 SET namaLengkap = @Nama,
+                                     asalDaerah  = @AsalDaerah,
+                                     keperluan   = @Tujuan,
+                                     tanggal     = @Tanggal
+                                 WHERE idTamu = @IdTamu";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@IdTamu", selectedId);
-                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text.Trim());
-                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text.Trim());
-                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text.Trim());
+                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text);
+                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
+                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
                 cmd.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
 
-                cmd.ExecuteNonQuery();
+                int result = cmd.ExecuteNonQuery();
 
-                MessageBox.Show("Data berhasil diperbarui.", "Berhasil",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearForm();
-                TampilkanSemuaData();
-            }
-            catch (SqlException ex)
-            {
-                if (ex.Message.Contains("Tidak ada perubahan"))
+                if (result > 0)
                 {
-                    MessageBox.Show(
-                        "Tidak ada perubahan yang terdeteksi pada data ini.",
-                        "Tidak Ada Perubahan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else if (ex.Message.Contains("sama sudah ada"))
-                {
-                    MessageBox.Show(
-                        "Data dengan nama, asal, tujuan, dan tanggal yang sama sudah ada pada catatan lain.",
-                        "Data Duplikat", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Data berhasil diubah", "Info",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearForm();
+                    MenampilkanData_Click(sender, e);
                 }
                 else
                 {
-                    MessageBox.Show(
-                        "Perubahan gagal disimpan karena ada gangguan pada database. Mohon coba lagi.",
-                        "Gagal Mengubah Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Data tidak ditemukan", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -290,96 +311,43 @@ namespace UCP1
 
                 if (selectedId == 0)
                 {
-                    MessageBox.Show(
-                        "Silakan pilih salah satu baris data di tabel terlebih dahulu sebelum menghapus.",
-                        "Belum Ada Data Dipilih", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Pilih data dari tabel terlebih dahulu", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 DialogResult resultConfirm = MessageBox.Show(
-                    "Data yang dihapus tidak dapat dikembalikan. Yakin ingin menghapus data ini?",
-                    "Konfirmasi Hapus",
+                    "Yakin ingin menghapus data?",
+                    "Konfirmasi",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
                 if (resultConfirm == DialogResult.Yes)
                 {
-                    SqlCommand cmd = new SqlCommand("sp_DeleteBukuTamu", conn);
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    string query = "DELETE FROM BukuTamu WHERE idTamu = @IdTamu";
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@IdTamu", selectedId);
 
-                    cmd.ExecuteNonQuery();
+                    int result = cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Data berhasil dihapus.", "Berhasil",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearForm();
-                    TampilkanSemuaData();
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Data berhasil dihapus", "Info",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearForm();
+                        MenampilkanData_Click(sender, e);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data tidak ditemukan", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                if (ex.Message.Contains("tidak ditemukan"))
-                {
-                    MessageBox.Show(
-                        "Data yang ingin dihapus tidak ditemukan. Mungkin sudah dihapus sebelumnya.",
-                        "Data Tidak Ditemukan", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Data gagal dihapus karena ada gangguan pada database. Mohon coba lagi.",
-                        "Gagal Menghapus Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            CariData();
-        }
-
-        private void CariData()
-        {
-            try
-            {
-                if (conn.State == ConnectionState.Closed)
-                    conn.Open();
-
-                string keyword = textBoxSearch.Text.Trim();
-
-                if (string.IsNullOrEmpty(keyword))
-                {
-                    TampilkanSemuaData();
-                    return;
-                }
-
-                SqlCommand cmd = new SqlCommand("sp_SearchBukuTamu", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Keyword", keyword);
-
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-
-                dataTable = new DataTable();
-                adapter.Fill(dataTable);
-
-                bindingSource.DataSource = dataTable;
-                dataGridView1.DataSource = bindingSource;
-
-                if (dataGridView1.Columns["idTamu"] != null)
-                    dataGridView1.Columns["idTamu"].Visible = false;
-
-                if (dataTable.Rows.Count == 0)
-                {
-                    MessageBox.Show(
-                        $"Tidak ada data yang cocok dengan pencarian \"{keyword}\".",
-                        "Data Tidak Ditemukan", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (SqlException)
-            {
-                MessageBox.Show(
-                    "Pencarian gagal dilakukan karena ada gangguan pada database. Mohon coba lagi.",
-                    "Gagal Mencari Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -410,34 +378,30 @@ namespace UCP1
         {
             DialogResult konfirmasi = MessageBox.Show(
                 "Yakin ingin logout?",
-                "Konfirmasi Logout",
+                "Konfirmasi",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (konfirmasi == DialogResult.Yes)
             {
-                if (conn.State == ConnectionState.Open)
-                    conn.Close();
-
                 Form3 formWelcome = new Form3();
                 formWelcome.Show();
                 this.Close();
             }
         }
 
-        private void lblNama_Click(object sender, EventArgs e) { }
-
-        private void lblTotal_Click(object sender, EventArgs e) { }
-
-        private void textBoxSearch_TextChanged(object sender, EventArgs e) { }
-
-        private void textBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
+        private void lblNama_Click(object sender, EventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                CariData();
-                e.Handled = true;
-            }
+        }
+
+        private void lblTotal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxCari_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
