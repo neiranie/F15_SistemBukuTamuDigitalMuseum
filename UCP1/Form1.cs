@@ -110,6 +110,19 @@ namespace UCP1
             }
         }
 
+        private void HitungTotalTamu()
+        {
+            try
+            {
+                if (conn.State == ConnectionState.Closed) conn.Open();
+                SqlCommand cmd = new SqlCommand("sp_CountBukuTamu", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                object hasil = cmd.ExecuteScalar();
+                lblTotal.Text = "Total: " + Convert.ToInt32(hasil).ToString();
+            }
+            catch (SqlException) { lblTotal.Text = "Total: -"; }
+        }
+
         private void MenampilkanData_Click(object sender, EventArgs e)
         {
             try
