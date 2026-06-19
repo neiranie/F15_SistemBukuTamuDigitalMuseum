@@ -202,10 +202,12 @@ namespace UCP1
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Terjadi kesalahan: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.Contains("duplikasi") || ex.Message.Contains("sudah ada"))
+                    MessageBox.Show("Data ini sudah pernah dicatat sebelumnya.", "Data Sudah Ada", ...);
+                else
+                    MessageBox.Show("Data gagal disimpan. Mohon coba lagi.", "Gagal Menambahkan Data", ...);
             }
         }
 
