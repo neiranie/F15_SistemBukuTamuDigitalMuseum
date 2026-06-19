@@ -372,6 +372,22 @@ namespace UCP1
             }
         }
 
+        private void btnSearch_Click(object sender, EventArgs e) { CariData(); }
+
+        private void CariData()
+        {
+            // jika kosong → TampilkanSemuaData()
+            SqlCommand cmd = new SqlCommand("sp_SearchBukuTamu", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Keyword", keyword);
+            // fill ke dataGridView1 ...
+        }
+
+        private void textBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter) { CariData(); e.Handled = true; }
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
