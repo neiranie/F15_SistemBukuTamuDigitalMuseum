@@ -93,12 +93,20 @@ namespace UCP1
                 btnMengubahData.Enabled = true;
                 btnMenghapusData.Enabled = true;
                 btnMembukaKoneksi.Enabled = false;
+                btnSearch.Enabled = true;
+                HitungTotalTamu();
 
             }
-            catch (Exception ex)
+            catch (SqlException)   
             {
-                MessageBox.Show("Koneksi gagal: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tidak bisa tersambung ke database.\n\n" +
+                    "Mohon periksa apakah SQL Server sudah menyala.",
+                    "Koneksi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Terjadi gangguan saat mencoba tersambung...",
+                    "Koneksi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
