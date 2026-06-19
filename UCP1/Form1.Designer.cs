@@ -36,17 +36,20 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnMembukaKoneksi = new System.Windows.Forms.Button();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
+            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.txtBoxCari = new System.Windows.Forms.TextBox();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.btnCari = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
@@ -55,12 +58,12 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(82, 502);
+            this.dataGridView1.Location = new System.Drawing.Point(86, 542);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.RowTemplate.Height = 33;
-            this.dataGridView1.Size = new System.Drawing.Size(1197, 304);
+            this.dataGridView1.Size = new System.Drawing.Size(1197, 317);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -68,7 +71,7 @@
             // lblNama
             // 
             this.lblNama.AutoSize = true;
-            this.lblNama.Location = new System.Drawing.Point(78, 170);
+            this.lblNama.Location = new System.Drawing.Point(82, 210);
             this.lblNama.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNama.Name = "lblNama";
             this.lblNama.Size = new System.Drawing.Size(51, 20);
@@ -78,7 +81,7 @@
             // 
             // textBoxNama
             // 
-            this.textBoxNama.Location = new System.Drawing.Point(217, 170);
+            this.textBoxNama.Location = new System.Drawing.Point(221, 210);
             this.textBoxNama.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNama.Multiline = true;
             this.textBoxNama.Name = "textBoxNama";
@@ -88,7 +91,7 @@
             // lblAsalDaerah
             // 
             this.lblAsalDaerah.AutoSize = true;
-            this.lblAsalDaerah.Location = new System.Drawing.Point(78, 256);
+            this.lblAsalDaerah.Location = new System.Drawing.Point(82, 296);
             this.lblAsalDaerah.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAsalDaerah.Name = "lblAsalDaerah";
             this.lblAsalDaerah.Size = new System.Drawing.Size(97, 20);
@@ -97,7 +100,7 @@
             // 
             // textBoxAsalDaerah
             // 
-            this.textBoxAsalDaerah.Location = new System.Drawing.Point(217, 254);
+            this.textBoxAsalDaerah.Location = new System.Drawing.Point(221, 294);
             this.textBoxAsalDaerah.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAsalDaerah.Multiline = true;
             this.textBoxAsalDaerah.Name = "textBoxAsalDaerah";
@@ -107,7 +110,7 @@
             // lblTujuan
             // 
             this.lblTujuan.AutoSize = true;
-            this.lblTujuan.Location = new System.Drawing.Point(78, 339);
+            this.lblTujuan.Location = new System.Drawing.Point(82, 379);
             this.lblTujuan.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTujuan.Name = "lblTujuan";
             this.lblTujuan.Size = new System.Drawing.Size(57, 20);
@@ -116,7 +119,7 @@
             // 
             // textBoxTujuan
             // 
-            this.textBoxTujuan.Location = new System.Drawing.Point(217, 339);
+            this.textBoxTujuan.Location = new System.Drawing.Point(221, 379);
             this.textBoxTujuan.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTujuan.Multiline = true;
             this.textBoxTujuan.Name = "textBoxTujuan";
@@ -126,7 +129,7 @@
             // lblTanggal
             // 
             this.lblTanggal.AutoSize = true;
-            this.lblTanggal.Location = new System.Drawing.Point(78, 434);
+            this.lblTanggal.Location = new System.Drawing.Point(82, 474);
             this.lblTanggal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTanggal.Name = "lblTanggal";
             this.lblTanggal.Size = new System.Drawing.Size(66, 20);
@@ -135,7 +138,7 @@
             // 
             // dateTimePicker
             // 
-            this.dateTimePicker.Location = new System.Drawing.Point(217, 430);
+            this.dateTimePicker.Location = new System.Drawing.Point(221, 470);
             this.dateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(320, 26);
@@ -154,7 +157,7 @@
             // 
             // btnMenampilkanData
             // 
-            this.btnMenampilkanData.Location = new System.Drawing.Point(611, 231);
+            this.btnMenampilkanData.Location = new System.Drawing.Point(615, 271);
             this.btnMenampilkanData.Margin = new System.Windows.Forms.Padding(2);
             this.btnMenampilkanData.Name = "btnMenampilkanData";
             this.btnMenampilkanData.Size = new System.Drawing.Size(318, 45);
@@ -165,7 +168,7 @@
             // 
             // btnMenambahkanData
             // 
-            this.btnMenambahkanData.Location = new System.Drawing.Point(611, 292);
+            this.btnMenambahkanData.Location = new System.Drawing.Point(615, 332);
             this.btnMenambahkanData.Margin = new System.Windows.Forms.Padding(2);
             this.btnMenambahkanData.Name = "btnMenambahkanData";
             this.btnMenambahkanData.Size = new System.Drawing.Size(318, 44);
@@ -176,7 +179,7 @@
             // 
             // btnMengubahData
             // 
-            this.btnMengubahData.Location = new System.Drawing.Point(611, 352);
+            this.btnMengubahData.Location = new System.Drawing.Point(615, 392);
             this.btnMengubahData.Margin = new System.Windows.Forms.Padding(2);
             this.btnMengubahData.Name = "btnMengubahData";
             this.btnMengubahData.Size = new System.Drawing.Size(318, 44);
@@ -187,7 +190,7 @@
             // 
             // btnMenghapusData
             // 
-            this.btnMenghapusData.Location = new System.Drawing.Point(611, 410);
+            this.btnMenghapusData.Location = new System.Drawing.Point(615, 450);
             this.btnMenghapusData.Margin = new System.Windows.Forms.Padding(2);
             this.btnMenghapusData.Name = "btnMenghapusData";
             this.btnMenghapusData.Size = new System.Drawing.Size(318, 44);
@@ -199,7 +202,7 @@
             // btnLogout
             // 
             this.btnLogout.BackColor = System.Drawing.Color.Salmon;
-            this.btnLogout.Location = new System.Drawing.Point(960, 170);
+            this.btnLogout.Location = new System.Drawing.Point(964, 210);
             this.btnLogout.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(318, 44);
@@ -210,7 +213,7 @@
             // 
             // btnMembukaKoneksi
             // 
-            this.btnMembukaKoneksi.Location = new System.Drawing.Point(611, 170);
+            this.btnMembukaKoneksi.Location = new System.Drawing.Point(615, 210);
             this.btnMembukaKoneksi.Margin = new System.Windows.Forms.Padding(2);
             this.btnMembukaKoneksi.Name = "btnMembukaKoneksi";
             this.btnMembukaKoneksi.Size = new System.Drawing.Size(318, 45);
@@ -248,13 +251,38 @@
             this.bindingNavigator1.TabIndex = 26;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
+            // bindingNavigatorAddNewItem
+            // 
+            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
+            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
+            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorAddNewItem.Text = "Add new";
+            // 
+            // bindingNavigatorCountItem
+            // 
+            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(54, 33);
+            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            // 
+            // bindingNavigatorDeleteItem
+            // 
+            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
+            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
+            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(34, 33);
+            this.bindingNavigatorDeleteItem.Text = "Delete";
+            // 
             // bindingNavigatorMoveFirstItem
             // 
             this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -263,13 +291,13 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 33);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 38);
             // 
             // bindingNavigatorPositionItem
             // 
@@ -281,17 +309,10 @@
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
-            // bindingNavigatorCountItem
-            // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(54, 28);
-            this.bindingNavigatorCountItem.Text = "of {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
-            // 
             // bindingNavigatorSeparator1
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 33);
+            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 38);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -299,7 +320,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -308,37 +329,50 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 33);
+            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 38);
             // 
-            // bindingNavigatorAddNewItem
+            // txtBoxCari
             // 
-            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(34, 28);
-            this.bindingNavigatorAddNewItem.Text = "Add new";
+            this.txtBoxCari.Location = new System.Drawing.Point(428, 12);
+            this.txtBoxCari.Multiline = true;
+            this.txtBoxCari.Name = "txtBoxCari";
+            this.txtBoxCari.Size = new System.Drawing.Size(145, 26);
+            this.txtBoxCari.TabIndex = 27;
+            this.txtBoxCari.TextChanged += new System.EventHandler(this.txtBoxCari_TextChanged);
             // 
-            // bindingNavigatorDeleteItem
+            // lblTotal
             // 
-            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(34, 28);
-            this.bindingNavigatorDeleteItem.Text = "Delete";
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Location = new System.Drawing.Point(999, 462);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(44, 20);
+            this.lblTotal.TabIndex = 28;
+            this.lblTotal.Text = "Total";
+            this.lblTotal.Click += new System.EventHandler(this.lblTotal_Click);
+            // 
+            // btnCari
+            // 
+            this.btnCari.Location = new System.Drawing.Point(1081, 9);
+            this.btnCari.Name = "btnCari";
+            this.btnCari.Size = new System.Drawing.Size(107, 31);
+            this.btnCari.TabIndex = 29;
+            this.btnCari.Text = "Search";
+            this.btnCari.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1443, 844);
+            this.ClientSize = new System.Drawing.Size(1443, 960);
+            this.Controls.Add(this.btnCari);
+            this.Controls.Add(this.lblTotal);
+            this.Controls.Add(this.txtBoxCari);
             this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.btnMembukaKoneksi);
             this.Controls.Add(this.btnLogout);
@@ -398,5 +432,8 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
+        private System.Windows.Forms.TextBox txtBoxCari;
+        private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.Button btnCari;
     }
 }

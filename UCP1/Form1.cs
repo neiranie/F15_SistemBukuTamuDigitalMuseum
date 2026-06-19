@@ -391,5 +391,15 @@ namespace UCP1
         private void lblNama_Click(object sender, EventArgs e)
         {
         }
+
+        private void lblTotal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxCari_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
