@@ -117,8 +117,9 @@ namespace UCP1
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                string query = "SELECT idTamu, namaLengkap, asalDaerah, keperluan, tanggal FROM BukuTamu";
-                SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                SqlCommand cmd = new SqlCommand("sp_GetAllBukuTamu", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
                 dataTable = new DataTable();
                 adapter.Fill(dataTable);
