@@ -48,6 +48,17 @@ namespace UCP1
             return Regex.IsMatch(text.Trim(), @"^[a-zA-Zs]+$");
         }
 
+        private bool IsValidTanggal(DateTime tanggal, out string pesanError)
+        {
+            DateTime hariIni = DateTime.Today;
+            if (tanggal.Date != hariIni)
+            {
+                pesanError = "Tanggal kunjungan hanya bisa diisi dengan tanggal hari ini.";
+                return false;
+            }
+            pesanError = string.Empty;
+            return true;
+        }
         private void MembukaKoneksi_Click(object sender, EventArgs e)
         {
             try
