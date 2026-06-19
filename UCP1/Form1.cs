@@ -59,6 +59,25 @@ namespace UCP1
             pesanError = string.Empty;
             return true;
         }
+
+        private bool ValidasiForm()
+        {
+            if (!IsValidText(textBoxNama.Text))
+            {
+                MessageBox.Show("Nama belum diisi dengan benar...",
+                    "Periksa Kembali Nama", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBoxNama.Focus(); return false;
+            }
+            if (!IsValidText(textBoxAsalDaerah.Text)) { /* ... */ return false; }
+            if (!IsValidText(textBoxTujuan.Text)) { /* ... */ return false; }
+            if (!IsValidTanggal(dateTimePicker.Value, out string pesanTanggal))
+            {
+                MessageBox.Show(pesanTanggal, "Periksa Kembali Tanggal",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dateTimePicker.Focus(); return false;
+            }
+            return true;
+        }
         private void MembukaKoneksi_Click(object sender, EventArgs e)
         {
             try
