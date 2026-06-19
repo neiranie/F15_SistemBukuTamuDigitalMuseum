@@ -71,6 +71,7 @@ namespace UCP1
                 btnMengubahData.Enabled = true;
                 btnMenghapusData.Enabled = true;
                 btnMembukaKoneksi.Enabled = false;
+
             }
             catch (Exception ex)
             {
