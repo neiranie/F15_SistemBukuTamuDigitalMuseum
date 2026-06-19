@@ -43,17 +43,9 @@ namespace UCP1
 
         private bool IsValidText(string text)
         {
+            if (string.IsNullOrWhiteSpace(text)) return false;
             if (text.Trim().Length < 2) return false;
-            bool adaHuruf = false;
-            foreach (char c in text)
-            {
-                if (char.IsLetter(c))
-                {
-                    adaHuruf = true;
-                    break;
-                }
-            }
-            return adaHuruf;
+            return Regex.IsMatch(text.Trim(), @"^[a-zA-Zs]+$");
         }
 
         private void MembukaKoneksi_Click(object sender, EventArgs e)
