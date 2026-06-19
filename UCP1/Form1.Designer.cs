@@ -47,9 +47,10 @@
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.txtBoxCari = new System.Windows.Forms.TextBox();
             this.lblTotal = new System.Windows.Forms.Label();
-            this.btnCari = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
@@ -337,15 +338,6 @@
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 38);
             // 
-            // txtBoxCari
-            // 
-            this.txtBoxCari.Location = new System.Drawing.Point(428, 12);
-            this.txtBoxCari.Multiline = true;
-            this.txtBoxCari.Name = "txtBoxCari";
-            this.txtBoxCari.Size = new System.Drawing.Size(145, 26);
-            this.txtBoxCari.TabIndex = 27;
-            this.txtBoxCari.TextChanged += new System.EventHandler(this.txtBoxCari_TextChanged);
-            // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
@@ -356,23 +348,44 @@
             this.lblTotal.Text = "Total";
             this.lblTotal.Click += new System.EventHandler(this.lblTotal_Click);
             // 
-            // btnCari
+            // button1
             // 
-            this.btnCari.Location = new System.Drawing.Point(1081, 9);
-            this.btnCari.Name = "btnCari";
-            this.btnCari.Size = new System.Drawing.Size(107, 31);
-            this.btnCari.TabIndex = 29;
-            this.btnCari.Text = "Search";
-            this.btnCari.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(615, 149);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(318, 45);
+            this.button1.TabIndex = 29;
+            this.button1.Text = "Membuka Koneksi";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(82, 149);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 20);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "Nama";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(221, 149);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(320, 45);
+            this.textBox1.TabIndex = 31;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1443, 960);
-            this.Controls.Add(this.btnCari);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblTotal);
-            this.Controls.Add(this.txtBoxCari);
             this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.btnMembukaKoneksi);
             this.Controls.Add(this.btnLogout);
@@ -432,8 +445,9 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.TextBox txtBoxCari;
         private System.Windows.Forms.Label lblTotal;
-        private System.Windows.Forms.Button btnCari;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
