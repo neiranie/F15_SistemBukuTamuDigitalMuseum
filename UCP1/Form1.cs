@@ -421,6 +421,9 @@ namespace UCP1
 
             if (konfirmasi == DialogResult.Yes)
             {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();  // ← tambah ini
+
                 Form3 formWelcome = new Form3();
                 formWelcome.Show();
                 this.Close();
