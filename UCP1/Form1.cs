@@ -178,35 +178,13 @@ namespace UCP1
                     return;
                 }
 
-                string queryCheck = @"SELECT COUNT(*) FROM BukuTamu 
-                                      WHERE namaLengkap = @Nama 
-                                      AND asalDaerah = @AsalDaerah 
-                                      AND keperluan = @Tujuan 
-                                      AND CAST(tanggal AS DATE) = CAST(@Tanggal AS DATE)";
+                if(!ValidasiForm()) return;  // ← satu baris ganti semua validasi inline
 
-                SqlCommand cmdCheck = new SqlCommand(queryCheck, conn);
-                cmdCheck.Parameters.AddWithValue("@Nama", textBoxNama.Text);
-                cmdCheck.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
-                cmdCheck.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
-                cmdCheck.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
-
-                int count = (int)cmdCheck.ExecuteScalar();
-                if (count > 0)
-                {
-                    MessageBox.Show("Data sudah ada, tidak boleh duplikasi!", "Peringatan",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                string query = @"INSERT INTO BukuTamu
-                                    (namaLengkap, asalDaerah, keperluan, tanggal)
-                                 VALUES
-                                    (@Nama, @AsalDaerah, @Tujuan, @Tanggal)";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text);
-                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
-                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
+                SqlCommand cmd = new SqlCommand("sp_InsertBukuTamu", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text.Trim());
+                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text.Trim());
+                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text.Trim());
                 cmd.Parameters.AddWithValue("@Tanggal", dateTimePicker.Value.Date);
 
                 int result = cmd.ExecuteNonQuery();
