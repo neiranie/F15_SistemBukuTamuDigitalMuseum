@@ -1,5 +1,3 @@
-
-
 SELECT name FROM sys.procedures WHERE name LIKE '%BukuTamu%'
 
 USE DBBukuTamuMuseum;
