@@ -1,26 +1,8 @@
-# Sistem Buku Tamu Digital Museum
-<img width="1919" height="1127" alt="image" src="https://github.com/user-attachments/assets/27caf5dd-8a69-41f4-8fe0-88d498b47c23" />
-<img width="1919" height="1126" alt="Screenshot 2026-05-17 234551" src="https://github.com/user-attachments/assets/3041d883-384c-4e42-b77e-be6dfd7b32c1" />
-<img width="1918" height="1124" alt="Screenshot 2026-05-17 234610" src="https://github.com/user-attachments/assets/6949bc43-74ba-46d6-9326-20a9ddd9fe9d" />
-<img width="1919" height="1127" alt="Screenshot 2026-05-17 234646" src="https://github.com/user-attachments/assets/b089341b-837a-4ed5-9450-5f1baf154297" />
-<img width="1907" height="1129" alt="Screenshot 2026-05-17 234702" src="https://github.com/user-attachments/assets/552e99ad-9173-4770-a64c-a0efdb863dad" />
-
-Aplikasi desktop berbasis C# Windows Forms untuk mengelola data kunjungan tamu museum. Terdapat dua role pengguna yaitu Pengunjung dan Petugas.
-
-### SQL Injection
-SQL Injection adalah serangan siber di mana penyerang menyisipkan perintah SQL melalui kolom input aplikasi. Tujuannya untuk memanipulasi database, misalnya bypass login tanpa username dan password yang benar.
-
-### Form yang Diuji
-Login Petugas
-
-### Percobaan SQL Injection
-Penyerang mencoba masuk ke sistem tanpa memiliki akun yang terdaftar dengan cara memasukkan input berikut:
-
-- Username: ' OR '1'='1
-- Password: ' OR '1'='1
-
-Jika sistem tidak dilindungi, query yang terbentuk di database akan menjadi seperti ini:
-
-SELECT * FROM Petugas WHERE username = '' OR '1'='1' AND password = '' OR '1'='1'
-
-Karena kondisi '1'='1' selalu bernilai benar, maka sistem yang tidak dilindungi akan mengizinkan siapa saja masuk tanpa verifikasi.
+<img width="959" height="562" alt="Screenshot 2026-06-22 205718" src="https://github.com/user-attachments/assets/a03d6976-348a-4d3b-a0f7-7144ee4643b8" />
+<img width="959" height="565" alt="Screenshot 2026-06-22 205739" src="https://github.com/user-attachments/assets/59cbef83-79ca-4d7d-91ca-631fb40e12a0" />
+<img width="959" height="563" alt="Screenshot 2026-06-22 205755" src="https://github.com/user-attachments/assets/e8e6033b-645d-475b-afe9-614b5543160f" />
+<img width="959" height="562" alt="Screenshot 2026-06-22 205818" src="https://github.com/user-attachments/assets/31c8503d-4402-4ed2-a836-3ca9e823f35f" />
+<img width="959" height="563" alt="Screenshot 2026-06-22 205910" src="https://github.com/user-attachments/assets/e70c9f24-be37-46bd-afc7-df9ddc045420" />
+<img width="956" height="563" alt="Screenshot 2026-06-22 210001" src="https://github.com/user-attachments/assets/8dd027da-b748-4f21-a78c-fcc737b0384f" />
+<img width="959" height="563" alt="Screenshot 2026-06-22 210028" src="https://github.com/user-attachments/assets/06d6c392-5a55-4052-9488-d8ad7c90879b" />
+<img width="959" height="565" alt="Screenshot 2026-06-22 210307" src="https://github.com/user-attachments/assets/54eacfd4-b5c1-49a8-8fe9-9133874cdfe0" />
