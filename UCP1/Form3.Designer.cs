@@ -40,29 +40,33 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(283, 51);
+            this.label1.Font = new System.Drawing.Font("Copperplate Gothic Bold", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(436, 230);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(222, 31);
+            this.label1.Size = new System.Drawing.Size(354, 35);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Selamat Datang";
+            this.label1.Text = "SELAMAT DATANG";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(319, 110);
+            this.pictureBox1.Location = new System.Drawing.Point(524, 290);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(155, 128);
+            this.pictureBox1.Size = new System.Drawing.Size(174, 160);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // btnPetugas
             // 
-            this.btnPetugas.BackColor = System.Drawing.Color.Salmon;
-            this.btnPetugas.Location = new System.Drawing.Point(423, 303);
+            this.btnPetugas.BackColor = System.Drawing.Color.Red;
+            this.btnPetugas.ForeColor = System.Drawing.Color.White;
+            this.btnPetugas.Location = new System.Drawing.Point(635, 528);
+            this.btnPetugas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPetugas.Name = "btnPetugas";
-            this.btnPetugas.Size = new System.Drawing.Size(104, 29);
+            this.btnPetugas.Size = new System.Drawing.Size(149, 41);
             this.btnPetugas.TabIndex = 2;
             this.btnPetugas.Text = "Petugas";
             this.btnPetugas.UseVisualStyleBackColor = false;
@@ -70,10 +74,12 @@
             // 
             // btnPengunjung
             // 
-            this.btnPengunjung.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnPengunjung.Location = new System.Drawing.Point(263, 303);
+            this.btnPengunjung.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnPengunjung.ForeColor = System.Drawing.Color.White;
+            this.btnPengunjung.Location = new System.Drawing.Point(461, 528);
+            this.btnPengunjung.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPengunjung.Name = "btnPengunjung";
-            this.btnPengunjung.Size = new System.Drawing.Size(104, 29);
+            this.btnPengunjung.Size = new System.Drawing.Size(149, 43);
             this.btnPengunjung.TabIndex = 3;
             this.btnPengunjung.Text = "Pengunjung";
             this.btnPengunjung.UseVisualStyleBackColor = false;
@@ -83,24 +89,26 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(294, 263);
+            this.label2.Location = new System.Drawing.Point(496, 481);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(191, 20);
+            this.label2.Size = new System.Drawing.Size(250, 25);
             this.label2.TabIndex = 4;
             this.label2.Text = "Silahkan Masuk Sebagai";
             // 
             // Form3
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1443, 960);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnPengunjung);
             this.Controls.Add(this.btnPetugas);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form3";
             this.Text = "Form3";
+            this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

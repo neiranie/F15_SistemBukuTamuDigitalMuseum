@@ -37,6 +37,20 @@ namespace UCP1
             return adaHuruf;
         }
 
+        private bool IsValidTanggal(DateTime tanggal, out string pesanError)
+        {
+            DateTime hariIni = DateTime.Today;
+
+            if (tanggal.Date != hariIni)
+            {
+                pesanError = "Tanggal kunjungan hanya bisa diisi dengan tanggal hari ini.";
+                return false;
+            }
+
+            pesanError = string.Empty;
+            return true;
+        }
+
         private void Kirim_Click(object sender, EventArgs e)
         {
             try
@@ -66,49 +80,39 @@ namespace UCP1
                     return;
                 }
 
-                string queryCheck = @"SELECT COUNT(*) FROM BukuTamu 
-                                      WHERE namaLengkap = @Nama 
-                                      AND asalDaerah = @AsalDaerah 
-                                      AND keperluan = @Tujuan 
-                                      AND CAST(tanggal AS DATE) = CAST(@Tanggal AS DATE)";
-
-                SqlCommand cmdCheck = new SqlCommand(queryCheck, conn);
-                cmdCheck.Parameters.AddWithValue("@Nama", textBoxNama.Text);
-                cmdCheck.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
-                cmdCheck.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
-                cmdCheck.Parameters.AddWithValue("@Tanggal", dateTimePicker1.Value.Date);
-
-                int count = (int)cmdCheck.ExecuteScalar();
-                if (count > 0)
+                if (!IsValidTanggal(dateTimePicker1.Value, out string pesanTanggal))
                 {
-                    MessageBox.Show("Data sudah ada, tidak boleh duplikasi!", "Peringatan",
+                    MessageBox.Show(pesanTanggal, "Periksa Kembali Tanggal",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dateTimePicker1.Focus();
                     return;
                 }
 
-                string query = @"INSERT INTO BukuTamu
-                                    (namaLengkap, asalDaerah, keperluan, tanggal)
-                                 VALUES
-                                    (@Nama, @AsalDaerah, @Tujuan, @Tanggal)";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text);
-                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text);
-                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text);
+                SqlCommand cmd = new SqlCommand("sp_InsertBukuTamu", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Nama", textBoxNama.Text.Trim());
+                cmd.Parameters.AddWithValue("@AsalDaerah", textBoxAsalDaerah.Text.Trim());
+                cmd.Parameters.AddWithValue("@Tujuan", textBoxTujuan.Text.Trim());
                 cmd.Parameters.AddWithValue("@Tanggal", dateTimePicker1.Value.Date);
 
-                int result = cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
 
-                if (result > 0)
+                MessageBox.Show("Data berhasil dikirim", "Info",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearForm();
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Message.Contains("duplikasi") || ex.Message.Contains("sudah ada"))
                 {
-                    MessageBox.Show("Data berhasil dikirim", "Info",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearForm();
+                    MessageBox.Show("Data sudah ada, tidak boleh duplikasi!", "Peringatan",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    MessageBox.Show("Data gagal dikirim", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        "Data gagal dikirim karena ada gangguan pada database. Mohon coba lagi.",
+                        "Gagal Mengirim Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)

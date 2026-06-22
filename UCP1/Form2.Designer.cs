@@ -43,7 +43,7 @@
             // 
             // textBoxNama
             // 
-            this.textBoxNama.Location = new System.Drawing.Point(729, 155);
+            this.textBoxNama.Location = new System.Drawing.Point(571, 223);
             this.textBoxNama.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNama.Multiline = true;
             this.textBoxNama.Name = "textBoxNama";
@@ -54,7 +54,7 @@
             // lblNama
             // 
             this.lblNama.AutoSize = true;
-            this.lblNama.Location = new System.Drawing.Point(557, 155);
+            this.lblNama.Location = new System.Drawing.Point(399, 223);
             this.lblNama.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNama.Name = "lblNama";
             this.lblNama.Size = new System.Drawing.Size(51, 20);
@@ -64,7 +64,7 @@
             // lblAsalDaerah
             // 
             this.lblAsalDaerah.AutoSize = true;
-            this.lblAsalDaerah.Location = new System.Drawing.Point(557, 260);
+            this.lblAsalDaerah.Location = new System.Drawing.Point(399, 328);
             this.lblAsalDaerah.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAsalDaerah.Name = "lblAsalDaerah";
             this.lblAsalDaerah.Size = new System.Drawing.Size(97, 20);
@@ -74,7 +74,7 @@
             // lblTujuan
             // 
             this.lblTujuan.AutoSize = true;
-            this.lblTujuan.Location = new System.Drawing.Point(557, 355);
+            this.lblTujuan.Location = new System.Drawing.Point(399, 423);
             this.lblTujuan.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTujuan.Name = "lblTujuan";
             this.lblTujuan.Size = new System.Drawing.Size(57, 20);
@@ -83,8 +83,9 @@
             // 
             // btnKirim
             // 
-            this.btnKirim.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnKirim.Location = new System.Drawing.Point(670, 532);
+            this.btnKirim.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnKirim.ForeColor = System.Drawing.Color.White;
+            this.btnKirim.Location = new System.Drawing.Point(512, 600);
             this.btnKirim.Margin = new System.Windows.Forms.Padding(2);
             this.btnKirim.Name = "btnKirim";
             this.btnKirim.Size = new System.Drawing.Size(141, 41);
@@ -95,7 +96,7 @@
             // 
             // textBoxAsalDaerah
             // 
-            this.textBoxAsalDaerah.Location = new System.Drawing.Point(729, 260);
+            this.textBoxAsalDaerah.Location = new System.Drawing.Point(571, 328);
             this.textBoxAsalDaerah.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAsalDaerah.Multiline = true;
             this.textBoxAsalDaerah.Name = "textBoxAsalDaerah";
@@ -104,7 +105,7 @@
             // 
             // textBoxTujuan
             // 
-            this.textBoxTujuan.Location = new System.Drawing.Point(729, 355);
+            this.textBoxTujuan.Location = new System.Drawing.Point(571, 423);
             this.textBoxTujuan.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTujuan.Multiline = true;
             this.textBoxTujuan.Name = "textBoxTujuan";
@@ -113,7 +114,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(729, 462);
+            this.dateTimePicker1.Location = new System.Drawing.Point(571, 530);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(320, 26);
@@ -122,7 +123,7 @@
             // lblTanggal
             // 
             this.lblTanggal.AutoSize = true;
-            this.lblTanggal.Location = new System.Drawing.Point(557, 462);
+            this.lblTanggal.Location = new System.Drawing.Point(399, 530);
             this.lblTanggal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTanggal.Name = "lblTanggal";
             this.lblTanggal.Size = new System.Drawing.Size(66, 20);
@@ -133,7 +134,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(631, 75);
+            this.label7.Location = new System.Drawing.Point(473, 143);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(283, 38);
@@ -142,8 +143,9 @@
             // 
             // btnLogout
             // 
-            this.btnLogout.BackColor = System.Drawing.Color.Salmon;
-            this.btnLogout.Location = new System.Drawing.Point(840, 532);
+            this.btnLogout.BackColor = System.Drawing.Color.Red;
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(682, 600);
             this.btnLogout.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(141, 41);
@@ -156,7 +158,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1443, 844);
+            this.ClientSize = new System.Drawing.Size(1443, 960);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lblTanggal);

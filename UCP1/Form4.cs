@@ -15,6 +15,9 @@ namespace UCP1
         {
             InitializeComponent();
             conn = new SqlConnection(connectionString);
+
+            textBoxPassword.PasswordChar = '*';
+            textBoxPassword.UseSystemPasswordChar = true;
         }
 
         private void Login_Click(object sender, EventArgs e)
@@ -31,19 +34,10 @@ namespace UCP1
                     textBoxUsername.Focus();
                     return;
                 }
-
-                if (textBoxPassword.Text == "")
-                {
-                    MessageBox.Show("Password harus diisi", "Peringatan",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    textBoxPassword.Focus();
-                    return;
-                }
-
-                string query = "SELECT * FROM Petugas WHERE username = @username AND password = @password";
+             
+                string query = "SELECT * FROM Petugas WHERE username = '" + textBoxUsername.Text +
+                                "' AND password = '" + textBoxPassword.Text + "'";
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@username", textBoxUsername.Text);
-                cmd.Parameters.AddWithValue("@password", textBoxPassword.Text);
 
                 SqlDataReader reader = cmd.ExecuteReader();
 

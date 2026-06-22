@@ -62,7 +62,7 @@ namespace UCP1
             return true;
         }
 
-        private bool ValidasiForm()
+        private bool ValidasiTeksForm()
         {
             if (!IsValidText(textBoxNama.Text))
             {
@@ -88,6 +88,13 @@ namespace UCP1
                 textBoxTujuan.Focus();
                 return false;
             }
+            return true;
+        }
+
+        private bool ValidasiFormTambah()
+        {
+            if (!ValidasiTeksForm()) return false;
+
             if (!IsValidTanggal(dateTimePicker.Value, out string pesanTanggal))
             {
                 MessageBox.Show(pesanTanggal, "Periksa Kembali Tanggal",
@@ -96,6 +103,11 @@ namespace UCP1
                 return false;
             }
             return true;
+        }
+
+        private bool ValidasiFormUbah()
+        {
+            return ValidasiTeksForm();
         }
 
         private void MembukaKoneksi_Click(object sender, EventArgs e)
@@ -193,7 +205,7 @@ namespace UCP1
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                if (!ValidasiForm()) return;
+                if (!ValidasiFormTambah()) return;
 
                 SqlCommand cmd = new SqlCommand("sp_InsertBukuTamu", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -241,7 +253,7 @@ namespace UCP1
                     return;
                 }
 
-                if (!ValidasiForm()) return;
+                if (!ValidasiFormUbah()) return;
 
                 SqlCommand cmd = new SqlCommand("sp_UpdateBukuTamu", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -374,6 +386,9 @@ namespace UCP1
                         $"Tidak ada data yang cocok dengan pencarian \"{keyword}\".",
                         "Data Tidak Ditemukan", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
+                textBoxSearch.Clear();
+                textBoxSearch.Focus();
             }
             catch (SqlException)
             {
@@ -392,6 +407,11 @@ namespace UCP1
                 textBoxNama.Text = row.Cells["namaLengkap"].Value.ToString();
                 textBoxAsalDaerah.Text = row.Cells["asalDaerah"].Value.ToString();
                 textBoxTujuan.Text = row.Cells["keperluan"].Value.ToString();
+
+                // dateTimePicker diisi tanggal ASLI dari data yang dipilih
+                // (bukan tanggal hari ini), supaya saat tombol "Ubah" ditekan,
+                // tanggal kunjungan yang lama tetap tersimpan apa adanya
+                // kecuali memang sengaja diganti oleh pengguna.
                 dateTimePicker.Value = Convert.ToDateTime(row.Cells["tanggal"].Value);
             }
         }
@@ -422,6 +442,82 @@ namespace UCP1
                 Form3 formWelcome = new Form3();
                 formWelcome.Show();
                 this.Close();
+            }
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            FormDashboard dashboard = new FormDashboard();
+            dashboard.ShowDialog();
+        }
+
+        private void btnLaporan_Click(object sender, EventArgs e)
+        {
+            FormReport laporan = new FormReport();
+            laporan.ShowDialog();
+        }
+
+        private void btnImportExcel_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Excel Files|*.xlsx;*.xls";
+            ofd.Title = "Pilih File Excel";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    OfficeOpenXml.ExcelPackage.License.SetNonCommercialPersonal("UCP1");
+
+                    using (var package = new OfficeOpenXml.ExcelPackage(new System.IO.FileInfo(ofd.FileName)))
+                    {
+                        var sheet = package.Workbook.Worksheets[0];
+                        int rowCount = sheet.Dimension.Rows;
+                        int berhasil = 0;
+                        int gagal = 0;
+
+                        using (SqlConnection conn = new SqlConnection(connectionString))
+                        {
+                            conn.Open();
+                            for (int row = 2; row <= rowCount; row++) // baris 1 = header
+                            {
+                                try
+                                {
+                                    string nama = sheet.Cells[row, 1].Text;
+                                    string asal = sheet.Cells[row, 2].Text;
+                                    string keperluan = sheet.Cells[row, 3].Text;
+                                    string tanggal = sheet.Cells[row, 4].Text;
+
+                                    if (string.IsNullOrEmpty(nama)) continue;
+
+                                    SqlCommand cmd = new SqlCommand("sp_InsertBukuTamu", conn);
+                                    cmd.CommandType = CommandType.StoredProcedure;
+                                    cmd.Parameters.AddWithValue("@Nama", nama);
+                                    cmd.Parameters.AddWithValue("@AsalDaerah", asal);
+                                    cmd.Parameters.AddWithValue("@Tujuan", keperluan);
+                                    cmd.Parameters.AddWithValue("@Tanggal", Convert.ToDateTime(tanggal));
+                                    cmd.ExecuteNonQuery();
+                                    berhasil++;
+                                }
+                                catch
+                                {
+                                    gagal++;
+                                }
+                            }
+                        }
+
+                        MessageBox.Show($"Import selesai!\nBerhasil: {berhasil} data\nGagal/Skip: {gagal} data",
+                            "Import Excel", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Refresh data di tabel
+                        TampilkanSemuaData();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Gagal Import",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
